@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package todo.v1;
 
-option go_package = "github.com/programmablemike/todo-api/autogen/todo/v1;todov1";
+option go_package = "github.com/programmablemike/todo-api/autogen/go/todo/v1;todov1";
 
 service TodoService {
   rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {}

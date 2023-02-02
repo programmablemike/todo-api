@@ -3,8 +3,8 @@ tasks:
   setup:
     desc: Install tools needed to run Buf
     cmds:
+      - go get
       - npm install
-      # - go install # TODO(mlee): Install the Go plugins for Buf
 
   generate:
     desc: Generate the gRPC stubs from Protobuf
