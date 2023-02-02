@@ -1,0 +1,27 @@
+{
+  "name": "todo-api",
+  "version": "1.0.0",
+  "description": "API for the Todo project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/programmablemike/todo-api.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/programmablemike/todo-api/issues"
+  },
+  "homepage": "https://github.com/programmablemike/todo-api#readme",
+  "devDependencies": {
+    "@bufbuild/protoc-gen-connect-web": "^0.6.0",
+    "@bufbuild/protoc-gen-es": "^1.0.0"
+  },
+  "dependencies": {
+    "@bufbuild/connect-web": "^0.6.0",
+    "@bufbuild/protobuf": "^1.0.0"
+  }
+}

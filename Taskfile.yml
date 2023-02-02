@@ -1,0 +1,6 @@
+version: '3'
+tasks:
+  generate:
+    desc: Generate the gRPC stubs from Protobuf
+    cmds:
+      - buf generate

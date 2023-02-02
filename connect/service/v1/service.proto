@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package todo.v1;
+
+option go_package = "github.com/programmablemike/electron-grpc-example/backend/gen/service/v1;todov1";
+
+service TodoService {
+  rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {}
+  rpc DeleteTask(DeleteTaskRequest) returns (DeleteTaskResponse) {}
+  rpc ListTasks(ListTasksRequest) returns (ListTasksResponse) {}
+}
+
+enum Status {
+    OK = 0;
+    ERROR = 1;
+}
+
+message Task {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message CreateTaskRequest {
+    string message_id = 1;
+    Task task = 2;
+}
+
+message CreateTaskResponse {
+    string request_message_id = 1;
+    Status status = 2;
+}
+
+message DeleteTaskRequest {
+    string message_id = 1;
+    Task task = 2;
+}
+
+message DeleteTaskResponse {
+    string request_message_id = 1;
+    Status status = 2;
+}
+
+message ListTasksRequest {
+    string message_id = 1;
+}
+
+message ListTasksResponse {
+    string request_message_id = 1;
+    Status status = 2;
+    repeated Task tasks = 3;
+}
