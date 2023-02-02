@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { CreateTaskRequest, CreateTaskResponse, DeleteTaskRequest, DeleteTaskResponse, ListTasksRequest, ListTasksResponse, MarkTaskRequest, MarkTaskResponse } from "./todo_pb.js";
+import { CreateTaskRequest, CreateTaskResponse, DeleteTaskRequest, DeleteTaskResponse, ListTasksRequest, ListTasksResponse, MarkTaskRequest, MarkTaskResponse } from "./todo_pb.ts";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
