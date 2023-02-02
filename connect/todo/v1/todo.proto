@@ -8,6 +8,8 @@ service TodoService {
   rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {}
   rpc DeleteTask(DeleteTaskRequest) returns (DeleteTaskResponse) {}
   rpc ListTasks(ListTasksRequest) returns (ListTasksResponse) {}
+  // MarkTask as complete or incomplete
+  rpc MarkTask(MarkTaskRequest) returns (MarkTaskResponse) {}
 }
 
 enum Status {
@@ -19,6 +21,7 @@ message Task {
     string id = 1;
     string name = 2;
     string description = 3;
+    bool done = 4;
 }
 
 message CreateTaskRequest {
@@ -33,7 +36,7 @@ message CreateTaskResponse {
 
 message DeleteTaskRequest {
     string message_id = 1;
-    Task task = 2;
+    string task_id = 2;
 }
 
 message DeleteTaskResponse {
@@ -49,4 +52,15 @@ message ListTasksResponse {
     string request_message_id = 1;
     Status status = 2;
     repeated Task tasks = 3;
+}
+
+message MarkTaskRequest {
+    string message_id = 1;
+    string task_id = 2;
+    bool completed = 3;
+}
+
+message MarkTaskResponse {
+    string request_message_id = 1;
+    Status status = 2;
 }

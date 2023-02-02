@@ -30,6 +30,8 @@ type TodoServiceClient interface {
 	CreateTask(context.Context, *connect_go.Request[v1.CreateTaskRequest]) (*connect_go.Response[v1.CreateTaskResponse], error)
 	DeleteTask(context.Context, *connect_go.Request[v1.DeleteTaskRequest]) (*connect_go.Response[v1.DeleteTaskResponse], error)
 	ListTasks(context.Context, *connect_go.Request[v1.ListTasksRequest]) (*connect_go.Response[v1.ListTasksResponse], error)
+	// MarkTask as complete or incomplete
+	MarkTask(context.Context, *connect_go.Request[v1.MarkTaskRequest]) (*connect_go.Response[v1.MarkTaskResponse], error)
 }
 
 // NewTodoServiceClient constructs a client for the todo.v1.TodoService service. By default, it uses
@@ -57,6 +59,11 @@ func NewTodoServiceClient(httpClient connect_go.HTTPClient, baseURL string, opts
 			baseURL+"/todo.v1.TodoService/ListTasks",
 			opts...,
 		),
+		markTask: connect_go.NewClient[v1.MarkTaskRequest, v1.MarkTaskResponse](
+			httpClient,
+			baseURL+"/todo.v1.TodoService/MarkTask",
+			opts...,
+		),
 	}
 }
 
@@ -65,6 +72,7 @@ type todoServiceClient struct {
 	createTask *connect_go.Client[v1.CreateTaskRequest, v1.CreateTaskResponse]
 	deleteTask *connect_go.Client[v1.DeleteTaskRequest, v1.DeleteTaskResponse]
 	listTasks  *connect_go.Client[v1.ListTasksRequest, v1.ListTasksResponse]
+	markTask   *connect_go.Client[v1.MarkTaskRequest, v1.MarkTaskResponse]
 }
 
 // CreateTask calls todo.v1.TodoService.CreateTask.
@@ -82,11 +90,18 @@ func (c *todoServiceClient) ListTasks(ctx context.Context, req *connect_go.Reque
 	return c.listTasks.CallUnary(ctx, req)
 }
 
+// MarkTask calls todo.v1.TodoService.MarkTask.
+func (c *todoServiceClient) MarkTask(ctx context.Context, req *connect_go.Request[v1.MarkTaskRequest]) (*connect_go.Response[v1.MarkTaskResponse], error) {
+	return c.markTask.CallUnary(ctx, req)
+}
+
 // TodoServiceHandler is an implementation of the todo.v1.TodoService service.
 type TodoServiceHandler interface {
 	CreateTask(context.Context, *connect_go.Request[v1.CreateTaskRequest]) (*connect_go.Response[v1.CreateTaskResponse], error)
 	DeleteTask(context.Context, *connect_go.Request[v1.DeleteTaskRequest]) (*connect_go.Response[v1.DeleteTaskResponse], error)
 	ListTasks(context.Context, *connect_go.Request[v1.ListTasksRequest]) (*connect_go.Response[v1.ListTasksResponse], error)
+	// MarkTask as complete or incomplete
+	MarkTask(context.Context, *connect_go.Request[v1.MarkTaskRequest]) (*connect_go.Response[v1.MarkTaskResponse], error)
 }
 
 // NewTodoServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -111,6 +126,11 @@ func NewTodoServiceHandler(svc TodoServiceHandler, opts ...connect_go.HandlerOpt
 		svc.ListTasks,
 		opts...,
 	))
+	mux.Handle("/todo.v1.TodoService/MarkTask", connect_go.NewUnaryHandler(
+		"/todo.v1.TodoService/MarkTask",
+		svc.MarkTask,
+		opts...,
+	))
 	return "/todo.v1.TodoService/", mux
 }
 
@@ -127,4 +147,8 @@ func (UnimplementedTodoServiceHandler) DeleteTask(context.Context, *connect_go.R
 
 func (UnimplementedTodoServiceHandler) ListTasks(context.Context, *connect_go.Request[v1.ListTasksRequest]) (*connect_go.Response[v1.ListTasksResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("todo.v1.TodoService.ListTasks is not implemented"))
+}
+
+func (UnimplementedTodoServiceHandler) MarkTask(context.Context, *connect_go.Request[v1.MarkTaskRequest]) (*connect_go.Response[v1.MarkTaskResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("todo.v1.TodoService.MarkTask is not implemented"))
 }

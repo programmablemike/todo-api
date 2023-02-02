@@ -45,6 +45,11 @@ export class Task extends Message<Task> {
    */
   description = "";
 
+  /**
+   * @generated from field: bool done = 4;
+   */
+  done = false;
+
   constructor(data?: PartialMessage<Task>) {
     super();
     proto3.util.initPartial(data, this);
@@ -56,6 +61,7 @@ export class Task extends Message<Task> {
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "done", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Task {
@@ -171,9 +177,9 @@ export class DeleteTaskRequest extends Message<DeleteTaskRequest> {
   messageId = "";
 
   /**
-   * @generated from field: todo.v1.Task task = 2;
+   * @generated from field: string task_id = 2;
    */
-  task?: Task;
+  taskId = "";
 
   constructor(data?: PartialMessage<DeleteTaskRequest>) {
     super();
@@ -184,7 +190,7 @@ export class DeleteTaskRequest extends Message<DeleteTaskRequest> {
   static readonly typeName = "todo.v1.DeleteTaskRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "message_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "task", kind: "message", T: Task },
+    { no: 2, name: "task_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteTaskRequest {
@@ -330,6 +336,98 @@ export class ListTasksResponse extends Message<ListTasksResponse> {
 
   static equals(a: ListTasksResponse | PlainMessage<ListTasksResponse> | undefined, b: ListTasksResponse | PlainMessage<ListTasksResponse> | undefined): boolean {
     return proto3.util.equals(ListTasksResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message todo.v1.MarkTaskRequest
+ */
+export class MarkTaskRequest extends Message<MarkTaskRequest> {
+  /**
+   * @generated from field: string message_id = 1;
+   */
+  messageId = "";
+
+  /**
+   * @generated from field: string task_id = 2;
+   */
+  taskId = "";
+
+  /**
+   * @generated from field: bool completed = 3;
+   */
+  completed = false;
+
+  constructor(data?: PartialMessage<MarkTaskRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "todo.v1.MarkTaskRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "message_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "task_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "completed", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MarkTaskRequest {
+    return new MarkTaskRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MarkTaskRequest {
+    return new MarkTaskRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MarkTaskRequest {
+    return new MarkTaskRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MarkTaskRequest | PlainMessage<MarkTaskRequest> | undefined, b: MarkTaskRequest | PlainMessage<MarkTaskRequest> | undefined): boolean {
+    return proto3.util.equals(MarkTaskRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message todo.v1.MarkTaskResponse
+ */
+export class MarkTaskResponse extends Message<MarkTaskResponse> {
+  /**
+   * @generated from field: string request_message_id = 1;
+   */
+  requestMessageId = "";
+
+  /**
+   * @generated from field: todo.v1.Status status = 2;
+   */
+  status = Status.OK;
+
+  constructor(data?: PartialMessage<MarkTaskResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "todo.v1.MarkTaskResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "request_message_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "status", kind: "enum", T: proto3.getEnumType(Status) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MarkTaskResponse {
+    return new MarkTaskResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MarkTaskResponse {
+    return new MarkTaskResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MarkTaskResponse {
+    return new MarkTaskResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MarkTaskResponse | PlainMessage<MarkTaskResponse> | undefined, b: MarkTaskResponse | PlainMessage<MarkTaskResponse> | undefined): boolean {
+    return proto3.util.equals(MarkTaskResponse, a, b);
   }
 }
 

@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { CreateTaskRequest, CreateTaskResponse, DeleteTaskRequest, DeleteTaskResponse, ListTasksRequest, ListTasksResponse } from "./todo_pb.js";
+import { CreateTaskRequest, CreateTaskResponse, DeleteTaskRequest, DeleteTaskResponse, ListTasksRequest, ListTasksResponse, MarkTaskRequest, MarkTaskResponse } from "./todo_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -37,6 +37,17 @@ export const TodoService = {
       name: "ListTasks",
       I: ListTasksRequest,
       O: ListTasksResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * MarkTask as complete or incomplete
+     *
+     * @generated from rpc todo.v1.TodoService.MarkTask
+     */
+    markTask: {
+      name: "MarkTask",
+      I: MarkTaskRequest,
+      O: MarkTaskResponse,
       kind: MethodKind.Unary,
     },
   }
